@@ -10,6 +10,7 @@ import UIKit
 import ObjectiveC.runtime
 
 
+
 public typealias ParallaxHeaderHandlerBlock = (_ parallaxHeader: ParallaxHeader)->Void
 
 

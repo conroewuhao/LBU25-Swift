@@ -15,16 +15,17 @@ import UINavigation_SXFixSpace_Swift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
+    
     var window: UIWindow?
-
-    // 监测网络
+    
+    // 监测网络,创建一个NetworkReachabilityManager对象,lazy创建
     lazy var reachability: NetworkReachabilityManager? = {
         return NetworkReachabilityManager(host: "http://app.u17.com")
     }()
     
     // 申明手机屏幕旋转方向
     var orientation: UIInterfaceOrientationMask = .portrait
+    
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // 键盘处理
@@ -38,6 +39,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // 配置
         setupBaseConfig()
         
+        //测试guard方法
+        guardFunctionDemo()
+        
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.backgroundColor = UIColor.white
         window?.rootViewController = LBUTabBarController()
@@ -45,6 +49,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+    
+    
+    
+    func guardFunctionDemo(){
+        let name: String? = "呵呵呵哒的名字";
+        let age: Int? = 4888888;
+        //guard函数保证不为空
+        guard let newName = name,
+        let newAage = age else{
+            print("空了");
+            return;
+        }
+        
+        print(newName + String(newAage));
+        
+    }
+    
 
     func setupBaseConfig() {
         
@@ -60,9 +81,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             switch status {
             case .reachable(.wwan):
                 UNoticeBar(config: UNoticeBarConfig(title: "主人,检测到您正在使用移动数据")).show(duration: 2)
+                
             default: break
             }
         }
+        
         reachability?.startListening()
         
     }
@@ -70,11 +93,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
         return orientation
     }
+    
+    
 }
 extension UIApplication {
     // 4. 强制旋转屏幕
     class func changeOrientationTo(landscapeRight: Bool) {
+        //使用Guard强制不为空
         guard let delegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        
         if landscapeRight == true {
             delegate.orientation = .landscapeRight
             UIApplication.shared.supportedInterfaceOrientations(for: delegate.window)

@@ -65,12 +65,14 @@ enum LBUNavigationBarStyle {
     case white
 }
 
+//UINavigationController Extension Methods
 extension UINavigationController {
     
     private struct AssociatedKeys {
         static var disablePopGesture: Void?
     }
     
+    //是否禁止弹出手势
     var disablePopGesture: Bool {
         get {
             return objc_getAssociatedObject(self, &AssociatedKeys.disablePopGesture) as? Bool ?? false
@@ -95,7 +97,5 @@ extension UINavigationController {
             navigationBar.setBackgroundImage(UIColor.white.image(), for: .default)
             navigationBar.shadowImage = nil
         }
-        
-        
     }
 }

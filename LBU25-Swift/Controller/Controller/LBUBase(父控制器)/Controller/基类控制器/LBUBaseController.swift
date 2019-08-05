@@ -19,6 +19,7 @@ class LBUBaseController: UIViewController {
 
         view.backgroundColor = UIColor.background
         
+        //This property specifies how the safe area insets are used to modify the content area of the scroll view
         if #available(iOS 11.0, *) {
             UIScrollView.appearance().contentInsetAdjustmentBehavior = .never
         } else {
@@ -33,9 +34,11 @@ class LBUBaseController: UIViewController {
         configNavigationBar()
     }
     
+    
     func setupLayout() {}
 
     func configNavigationBar() {
+        //guard强制保证navi有值
         guard let navi = navigationController else { return }
         if navi.visibleViewController == self {
             navi.barStyle(.theme)
@@ -52,10 +55,11 @@ class LBUBaseController: UIViewController {
     @objc func pressBack() {
         navigationController?.popViewController(animated: true)
     }
+    
 }
 
 extension LBUBaseController {
-    
+    //修改状态栏样式
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return .lightContent
     }

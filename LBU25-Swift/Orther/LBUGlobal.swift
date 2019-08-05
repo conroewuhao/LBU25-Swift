@@ -22,12 +22,12 @@ extension UIColor {
         return UIColor(r: 29, g: 221, b: 43)
     }
 }
-
+//Mark 定义搜索key
 extension String {
     static let searchHistoryKey = "searchHistoryKey"
     static let sexTypeKey = "sexTypeKey"
 }
-
+//Mark 定义通知的name
 extension NSNotification.Name {
     static let USexTypeDidChange = NSNotification.Name("USexTypeDidChange")
 }
@@ -50,6 +50,7 @@ var isIphoneX: Bool {
             || max(UIScreen.main.bounds.height, UIScreen.main.bounds.width) == 896)
 }
 
+//Mark:定义一个显示TopVC的函数
 private  func _topVC(_ vc: UIViewController?) -> UIViewController? {
     if vc is UINavigationController {
         return _topVC((vc as? UINavigationController)?.topViewController)

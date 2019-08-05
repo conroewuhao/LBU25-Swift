@@ -18,21 +18,31 @@ class LBUPageController: LBUBaseController {
 
     var pageStyle: LBUPageStyle!
     
+    //延迟加载初始化
     lazy var segment: HMSegmentedControl = {
+
+        //添加点击事件
         return HMSegmentedControl().then{
+            //$0代替在OCBlock中的self作用
             $0.addTarget(self, action: #selector(changeIndex(segment:)), for: .valueChanged)
         }
     }()
     
+    //延迟加载UIPageViewController
     lazy var pageVC: UIPageViewController = {
         return UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
     }()
     
+    //定义接受变量,set方法,方法内作用
+    
+    //UIViewController数组
     private(set) var vcs: [UIViewController]!
+    //String数组
     private(set) var titles:[String]!
+    
     private var currentSelectIndex: Int = 0
     
-    
+    //
     convenience init(titles: [String] = [], vcs: [UIViewController] = [], pageStyle: LBUPageStyle = .none) {
         self.init()
         self.titles = titles
@@ -43,7 +53,7 @@ class LBUPageController: LBUBaseController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
+    // Selector 中调用的方法需要在方法前声明 @objc，目的是允许这个函数在“运行时”通过 Objective-C 的消息机制调用
     @objc func changeIndex(segment: UISegmentedControl) {
         let index = segment.selectedSegmentIndex
         if currentSelectIndex != index {
